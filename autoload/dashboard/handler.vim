@@ -10,7 +10,7 @@ function! dashboard#handler#new_file()
 endfunction
 
 function! dashboard#handler#last_session()
-  SessionLoad
+  SessionManager load_last_session
 endfunction
 
 function! dashboard#handler#find_file() abort
