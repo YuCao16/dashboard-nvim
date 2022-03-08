@@ -35,10 +35,10 @@ if exists('g:dashboard_custom_section')
   call extend(s:Section, g:dashboard_custom_section)
 else
   let s:Section = {
-    \ 'last_session'         :{
+    \ 'blast_session'         :{
           \ 'description': [s:dashboard_shortcut_icon['last_session'].'Open last session                     '.s:dashboard_shortcut['last_session']],
           \ 'command':function('dashboard#handler#last_session')},
-    \ 'find_history'         :{
+    \ 'afind_history'         :{
           \ 'description': [s:dashboard_shortcut_icon['find_history'].'Recently opened files                 '.s:dashboard_shortcut['find_history']],
           \ 'command':function('dashboard#handler#find_history')},
     \ 'find_file'            :{
