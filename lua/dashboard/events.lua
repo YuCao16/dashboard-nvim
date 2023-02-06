@@ -34,9 +34,9 @@ function au:dashboard_events()
           api.nvim_del_augroup_by_id(self.au_group)
         end
         self.au_group = nil
-        if db.bufnr and api.nvim_buf_is_loaded(db.bufnr) then
-          api.nvim_buf_delete(db.bufnr, { force = true })
-        end
+        -- if db.bufnr and api.nvim_buf_is_loaded(db.bufnr) then
+        --   api.nvim_buf_delete(db.bufnr, { force = true })
+        -- end
       end
     end,
   })
@@ -75,14 +75,8 @@ function au:dashboard_events()
         vim.opt.showtabline = db.user_showtabline_value
       end
 
-      if vim.fn.has('nvim-0.9') == 1 then
-        if vim.opt.stc == '' then
-          vim.opt.stc = db.user_stc_value
-        end
-      end
-
       if vim.fn.has('nvim-0.8') == 1 then
-        if vim.opt.winbar:get() == '' then
+        if vim.opt.winbar == '' then
           vim.opt.winbar = db.user_winbar_value
         end
       end

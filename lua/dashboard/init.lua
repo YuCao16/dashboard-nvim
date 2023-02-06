@@ -71,9 +71,6 @@ local set_buf_local_options = function()
   for opt, val in pairs(opts) do
     vim.opt_local[opt] = val
   end
-  if fn.has('nvim-0.9') == 1 then
-    vim.opt_local.stc = ''
-  end
 end
 
 -- draw the graphics into the screen center
@@ -119,7 +116,7 @@ local set_line_with_highlight = function(bufnr, line_start, line_end, tbl, hl)
 end
 
 local db_notify = function(msg)
-  vim.notify(msg, vim.log.levels.WARN, { title = 'Dashboard' })
+  vim.notify(msg, 'error', { title = 'Dashboard' })
 end
 
 local line_actions, icons, shortcuts = {}, {}, {}
@@ -156,11 +153,6 @@ local get_length_with_graphics = function(pos)
       local default_footer = { '', '🎉 Have fun with neovim' }
       if packer_plugins ~= nil then
         local count = #vim.tbl_keys(packer_plugins)
-        default_footer[2] = '🎉 neovim loaded ' .. count .. ' plugins'
-      end
-      local status, lazy = pcall(require, 'lazy')
-      if status then
-        local count = lazy.stats().count
         default_footer[2] = '🎉 neovim loaded ' .. count .. ' plugins'
       end
       return default_footer
@@ -434,7 +426,7 @@ function db.new_file()
   end
 
   if vim.fn.has('nvim-0.8') == 1 then
-    if vim.opt_local.winbar:get() == '' then
+    if vim.opt_local.winbar == '' then
       vim.opt_local.winbar = db.user_winbar_value
     end
   end
@@ -448,7 +440,7 @@ function db:instance(on_vimenter, ...)
   end
 
   if not vim.o.hidden and vim.bo.modified then
-    vim.notify('Save your change first', vim.log.levels.WARN, { title = 'Dashboard' })
+    vim.notify('Save your change first', 'info', { title = 'Dashboard' })
     return
   end
 
@@ -468,10 +460,7 @@ function db:instance(on_vimenter, ...)
   db.user_laststatus_value = vim.opt.laststatus:get()
   db.user_showtabline_value = vim.opt.showtabline:get()
   if vim.fn.has('nvim-0.8') == 1 then
-    db.user_winbar_value = vim.opt.winbar:get()
-  end
-  if vim.fn.has('nvim-0.9') == 1 then
-    db.user_stc_value = vim.opt.stc
+    db.user_winbar_value = vim.opt.winbar
   end
 
   set_buf_local_options()
